@@ -1,7 +1,4 @@
 #!/usr/bin/python
-
-import socket
-import re
 import array
 import time
 import math
