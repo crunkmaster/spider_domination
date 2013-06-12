@@ -1,6 +1,3 @@
-import socket
-import re
-
 TIMEOUT = 30
 SERVER_PORT = 6060
 
