@@ -14,13 +14,13 @@ rr = RR_API()
 rr.Connect("localhost")
 
 # set up xbee for communication
-PORT = 'COM3'
+PORT = 'COM4'
 BAUD_RATE = 9600
 
 ser = serial.Serial( PORT, BAUD_RATE )
 xbee = ZigBee( ser, escaped=True )
 DEST_ADDR_LONG = "\x00\x13\xA2\x00\x40\xAA\x18\xD5"
-DEST_ADDR = "\xFF\xFE"
+DEST_ADDR = "\xFF\xFF"
 
 print "running test program"
 testout = open( "data", 'w')
@@ -64,14 +64,19 @@ while True:
 
         for key in sorted( centers.iterkeys() ):
             # send the x and y to the receiving xbee
-            simplex = int(round(centers[key][0]))
-            simpley = int(round(centers[key][1]))
+            simplex = int(round(centers[key][1]))
+            simpley = int(round(centers[key][0]))
     
             orientation = fiducialDict[key][14] * (math.pi / 180)
+            print orientation
             testout.write("orientation: {0}\n".format(orientation))
             xbee.tx(dest_addr_long=DEST_ADDR_LONG, dest_addr=DEST_ADDR,
-                    data="-{0},{1},{2},{3},{4}".format(200,200,
-                        simplex,-simpley,orientation))
+                    data="-{0},{1},{2},{3},{4}".format(100,100,
+                        simplex, simpley, (10000 * orientation)))
+            
+            # response = xbee.wait_read_frame()
+            # response.setdefault('rf_data', "nothing")
+            # print response['rf_data']
             time.sleep(.1)
 
     except KeyError:
