@@ -11,6 +11,8 @@ testout = open("data", "w")
 while True:
     try:
         ts = time.time()
+        # it's important to note that the input being send MUST
+        # contain a new line or readline() will not work properly
         output = ser.readline()
         print output
         testout.write("data: {0} time: {1}\n".format(output, ts))
