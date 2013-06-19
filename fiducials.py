@@ -23,7 +23,7 @@ rr.Connect("localhost")
 # set up xbee for communication
 # port should be replaced with whatever the COM port the sending
 # XBee Receives is.
-PORT = 'COM4'
+PORT = 'COM3'
 BAUD_RATE = 9600 # the default baud rate for XBee
 
 # connect to the XBee serial port
